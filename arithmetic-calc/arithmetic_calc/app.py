@@ -2,26 +2,16 @@ import sys
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
-    QApplication,
-    QCheckBox,
+    
     QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
     QDoubleSpinBox,
-    QFontComboBox,
-    QLabel,
-    QLCDNumber,
-    QLineEdit,
     QMainWindow,
-    QProgressBar,
     QPushButton,
-    QRadioButton,
-    QSlider,
     QSpinBox,
-    QTimeEdit,
-    QVBoxLayout,
     QWidget,
+    QApplication,
+    QVBoxLayout,
+    QLabel
 )
 
 
@@ -31,25 +21,12 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Arithmetic Calculator")
-        self.resize(100,500)
+
         layout = QVBoxLayout()
         widgets = [
-            QCheckBox,
             QComboBox,
-            QDateEdit,
-            QDateTimeEdit,
-            QDial,
-            QDoubleSpinBox,
-            QFontComboBox,
-            QLCDNumber,
-            QLabel,
-            QLineEdit,
-            QProgressBar,
-            QPushButton,
-            QRadioButton,
-            QSlider,
             QSpinBox,
-            QTimeEdit,
+            
         ]
 
         for w in widgets:
@@ -57,13 +34,32 @@ class MainWindow(QMainWindow):
 
         widget = QWidget()
         widget.setLayout(layout)
+        self.setMinimumSize(400,400)
 
         # Set the central widget of the Window. Widget will expand
         # to take up all the space in the window by default.
         self.setCentralWidget(widget)
+        
+        button = QPushButton("Test Button", self)
+        button.move(150,150)
 
 
 app = QApplication(sys.argv)
+app.setStyleSheet("""
+    QWidget {
+                  background-color:#B2FFFF;
+                  color:white;
+
+    }
+    QSpinBox, QPushButton, QComboBox, QDoubleSpinBox {
+                  background-color:#318CE7;
+    }
+    QPushButton {
+                align-content: center; 
+    }
+""")
+
+
 window = MainWindow()
 window.show()
 
