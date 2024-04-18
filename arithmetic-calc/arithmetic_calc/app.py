@@ -13,6 +13,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QLabel,
     QSizePolicy,
+    QHBoxLayout,
 
 )
 
@@ -35,6 +36,7 @@ class MainWindow(QMainWindow):
         ops = QComboBox()
         ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
 
+
         ops.addItem("+")
         ops.addItem("-")
         ops.addItem("x")
@@ -47,6 +49,9 @@ class MainWindow(QMainWindow):
         num1.setRange(-1000000, 1000000)
         num2.setRange(-1000000, 1000000)
 
+        button1 = QPushButton("Calculate!")
+
+
         # Creates a central widget (Like a container to holod the other widgets)
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -58,20 +63,25 @@ class MainWindow(QMainWindow):
         # Add Widgets to the layout
         layout.addWidget(label)
 
-
+        
         layout.addWidget(num1)
-        num1.setAlignment(Qt.AlignmentFlag.AlignLeft)
-
-        layout.addWidget(num2)
-        num2.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        num1.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         layout.addWidget(ops)
+
+
+        layout.addWidget(num2)
+        num2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+       
+
+        layout.addWidget(button1)
 
 
 app = QApplication(sys.argv)
 app.setStyleSheet("""
     QWidget {
-        background-color:#89CFF0;
+        background-color:#b7e4e7;
     }
                   
     QLabel, QSpinBox, QComboBox {
@@ -79,7 +89,7 @@ app.setStyleSheet("""
     }
                   
     QLabel {
-        color:#0039a6;
+        color:#0097b2;
         font-weight:bold;
         font-size:37px;
         border: 2px solid #1E0343;
@@ -87,7 +97,7 @@ app.setStyleSheet("""
         padding-right:auto;
         margin-left:60px;
         margin-right:auto;
-        background-color:#E1F7F5;
+        background-color:#c8f9dc;
         letter-spacing:4px;
                          
     }
@@ -97,14 +107,30 @@ app.setStyleSheet("""
         font-size:35px;
         border:2px solid #0E46A3;
         width:100px;
+        background-color:#98befc;
                 
     }
                   
     QComboBox {
         height:50px;
+        width:100px;
         font-size:29px;
         border: 2px solid #0E46A3;
     }
+                  
+    QPushButton {
+        background-color:#c8f9dc;
+        font-size: 25px;
+        font-weight:bold;
+        border:2px solid #0E46A3;
+        border-radius:20px;
+
+    }
+                  
+    QPushButton:hover {
+        color:red;
+    }
+                
                   """)
 
 window = MainWindow()
