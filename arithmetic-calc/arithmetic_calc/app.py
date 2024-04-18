@@ -11,7 +11,9 @@ from PyQt6.QtWidgets import (
     QWidget,
     QApplication,
     QVBoxLayout,
-    QLabel
+    QLabel,
+    QSizePolicy,
+
 )
 
 
@@ -21,44 +23,89 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Arithmetic Calculator")
+        self.setMinimumSize(500,500)
 
+
+        label = QLabel("Arithmetic Calculator")
+
+        label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+
+
+        ops = QComboBox()
+        ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+
+        ops.addItem("+")
+        ops.addItem("-")
+        ops.addItem("x")
+        ops.addItem("//")
+
+        num1 = QSpinBox()
+        num2 = QSpinBox()
+        num1.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        num2.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        num1.setRange(-1000000, 1000000)
+        num2.setRange(-1000000, 1000000)
+
+        # Creates a central widget (Like a container to holod the other widgets)
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+
+        # "QVBoxLayout" makes a vertical layout
         layout = QVBoxLayout()
-        widgets = [
-            QComboBox,
-            QSpinBox,
-            
-        ]
+        central_widget.setLayout(layout)
 
-        for w in widgets:
-            layout.addWidget(w())
+        # Add Widgets to the layout
+        layout.addWidget(label)
 
-        widget = QWidget()
-        widget.setLayout(layout)
-        self.setMinimumSize(400,400)
 
-        # Set the central widget of the Window. Widget will expand
-        # to take up all the space in the window by default.
-        self.setCentralWidget(widget)
-        
-        button = QPushButton("Test Button", self)
-        button.move(150,150)
+        layout.addWidget(num1)
+        num1.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        layout.addWidget(num2)
+        num2.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        layout.addWidget(ops)
 
 
 app = QApplication(sys.argv)
 app.setStyleSheet("""
     QWidget {
-                  background-color:#B2FFFF;
-                  color:white;
-
+        background-color:#89CFF0;
     }
-    QSpinBox, QPushButton, QComboBox, QDoubleSpinBox {
-                  background-color:#318CE7;
+                  
+    QLabel, QSpinBox, QComboBox {
+        border-radius:20px;
     }
-    QPushButton {
-                align-content: center; 
+                  
+    QLabel {
+        color:#0039a6;
+        font-weight:bold;
+        font-size:37px;
+        border: 2px solid #1E0343;
+        padding-left:auto;
+        padding-right:auto;
+        margin-left:60px;
+        margin-right:auto;
+        background-color:#E1F7F5;
+        letter-spacing:4px;
+                         
     }
-""")
-
+                  
+    QSpinBox {
+        height:100px;
+        font-size:35px;
+        border:2px solid #0E46A3;
+        width:100px;
+                
+    }
+                  
+    QComboBox {
+        height:50px;
+        font-size:29px;
+        border: 2px solid #0E46A3;
+    }
+                  """)
 
 window = MainWindow()
 window.show()
