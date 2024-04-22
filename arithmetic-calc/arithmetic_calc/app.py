@@ -128,6 +128,9 @@ app.setStyleSheet("""
     }
                   
     QPushButton:hover {
+        color:#98befc;
+    }
+    QPushButton:pressed {
         color:red;
     }
                 
