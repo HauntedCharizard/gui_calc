@@ -1,22 +1,18 @@
 import sys
-
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
-    
+    QApplication,
     QComboBox,
     QDoubleSpinBox,
     QMainWindow,
     QPushButton,
     QSpinBox,
     QWidget,
-    QApplication,
     QVBoxLayout,
     QLabel,
     QSizePolicy,
     QHBoxLayout,
-
 )
-
 
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
@@ -24,20 +20,15 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Arithmetic Calculator")
-        self.setMinimumSize(500,500)
-
+        self.setMinimumSize(500, 500)
 
         label = QLabel("Arithmetic Calculator")
-
         label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
-
         ops = QComboBox()
-        ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
-
-
-        ops.addItem("+")
+        ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed) # Changes the size of the variables 
+        ops.addItem("+") # Adding options to the ComboBox
         ops.addItem("-")
         ops.addItem("x")
         ops.addItem("//")
@@ -50,9 +41,21 @@ class MainWindow(QMainWindow):
         num2.setRange(-1000000, 1000000)
 
         button1 = QPushButton("Calculate!")
+        button2 = QPushButton("Reset")
+      
 
+        # Create a horizontal layout for the QComboBoxes
+        combo_layout = QHBoxLayout()
+        combo_layout.addWidget(num1)
+        combo_layout.addWidget(ops)
+        combo_layout.addWidget(num2)
 
-        # Creates a central widget (Like a container to holod the other widgets)
+        # Creating another Horizontal Layout for the Qbuttons
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(button1)
+        button_layout.addWidget(button2)
+
+        # Creates a central widget (Like a container to hold the other widgets)
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
@@ -62,21 +65,8 @@ class MainWindow(QMainWindow):
 
         # Add Widgets to the layout
         layout.addWidget(label)
-
-        
-        layout.addWidget(num1)
-        num1.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        layout.addWidget(ops)
-
-
-        layout.addWidget(num2)
-        num2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-       
-
-        layout.addWidget(button1)
-
+        layout.addLayout(combo_layout)
+        layout.addLayout(button_layout)
 
 app = QApplication(sys.argv)
 app.setStyleSheet("""
@@ -133,10 +123,9 @@ app.setStyleSheet("""
     QPushButton:pressed {
         color:red;
     }
-                
-                  """)
+""")
 
 window = MainWindow()
 window.show()
 
-app.exec()
+sys.exit(app.exec())
