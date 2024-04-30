@@ -42,6 +42,8 @@ class MainWindow(QMainWindow):
 
         button1 = QPushButton("Calculate!")
         button2 = QPushButton("Reset")
+
+        ans = QLabel("")
       
 
         # Create a horizontal layout for the QComboBoxes
@@ -53,6 +55,7 @@ class MainWindow(QMainWindow):
         # Creating another Horizontal Layout for the Qbuttons
         button_layout = QHBoxLayout()
         button_layout.addWidget(button1)
+        button_layout.addWidget(ans)
         button_layout.addWidget(button2)
 
         # Creates a central widget (Like a container to hold the other widgets)
@@ -121,7 +124,7 @@ app.setStyleSheet("""
         color:#98befc;
     }
     QPushButton:pressed {
-        color:red;
+        color:#78befc;
     }
 """)
 
