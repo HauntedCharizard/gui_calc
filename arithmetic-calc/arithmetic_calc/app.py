@@ -30,8 +30,8 @@ class MainWindow(QMainWindow):
         ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed) # Changes the size of the variables 
         ops.addItem("+") # Adding options to the ComboBox
         ops.addItem("-")
-        ops.addItem("x")
-        ops.addItem("//")
+        ops.addItem("×")
+        ops.addItem("÷")
 
         num1 = QSpinBox()
         num2 = QSpinBox()
