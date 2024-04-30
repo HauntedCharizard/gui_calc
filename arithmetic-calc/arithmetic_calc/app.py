@@ -40,11 +40,18 @@ class MainWindow(QMainWindow):
         num1.setRange(-1000000, 1000000)
         num2.setRange(-1000000, 1000000)
 
+
+        ans = QLabel("func")
+        
         button1 = QPushButton("Calculate!")
+        button1.clicked.connect(ans)
         button2 = QPushButton("Reset")
 
-        ans = QLabel("")
-      
+       
+        def func():
+            print(ans.text)
+
+        
 
         # Create a horizontal layout for the QComboBoxes
         combo_layout = QHBoxLayout()
