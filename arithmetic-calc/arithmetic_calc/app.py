@@ -13,8 +13,8 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
     QHBoxLayout,
 )
-
-# Subclass QMainWindow to customize your application's main window
+    
+# The Main window and most customizations are here
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -26,12 +26,12 @@ class MainWindow(QMainWindow):
         label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
-        ops = QComboBox()
-        ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed) # Changes the size of the variables 
-        ops.addItem("+") # Adding options to the ComboBox
-        ops.addItem("-")
-        ops.addItem("×")
-        ops.addItem("÷")
+        self.ops = QComboBox()  # Fix: Define ops as an attribute of MainWindow
+        self.ops.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        self.ops.addItem("+")
+        self.ops.addItem("-")
+        self.ops.addItem("×")
+        self.ops.addItem("÷")
 
         self.num1 = QSpinBox()
         self.num2 = QSpinBox()
@@ -40,28 +40,22 @@ class MainWindow(QMainWindow):
         self.num1.setRange(-1000000, 1000000)
         self.num2.setRange(-1000000, 1000000)
 
-
         self.ans_label = QLabel("Answer: ")
-        self.ans_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)  
-        self.ans_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)  
+        self.ans_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        self.ans_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
-
-
-        
-        
         button1 = QPushButton("Calculate!")
         button2 = QPushButton("Reset")
 
         # Create a horizontal layout for the QComboBoxes
         combo_layout = QHBoxLayout()
         combo_layout.addWidget(self.num1)
-        combo_layout.addWidget(ops)
+        combo_layout.addWidget(self.ops)  # Fix: Use self.ops instead of ops
         combo_layout.addWidget(self.num2)
 
         # Creating another Horizontal Layout for the Qbuttons
         button_layout = QHBoxLayout()
         button_layout.addWidget(button1)
-      
         button_layout.addWidget(button2)
 
         # Creates a central widget (Like a container to hold the other widgets)
@@ -78,14 +72,37 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.ans_label)
         layout.addLayout(button_layout)
 
+        # Connect the "clicked" signal of the "Calculate!" button to the calculation function
+        button1.clicked.connect(self.calculate)
+        button2.clicked.connect(self.reset)
 
+    def calculate(self):
 
+        operator = self.ops.currentText()  
+        num1 = self.num1.value()
+        num2 = self.num2.value()
 
-   
+       
+        if operator == "+":
+            result = num1 + num2
+        elif operator == "-":
+            result = num1 - num2
+        elif operator == "×":
+            result = num1 * num2
+        elif operator == "÷":
+            if num2 != 0:
+                result = num1 / num2
+            else:
+                result = "Error"
+
+        self.ans_label.setText(f"Answer: {result}")
+
         
-
-
-
+    def reset(self):
+        self.num1.setValue(0)
+        self.num2.setValue(0)
+        self.ans_label.setText("Answer: ")
+        
 app = QApplication(sys.argv)
 app.setStyleSheet("""
     QWidget {
@@ -141,6 +158,8 @@ app.setStyleSheet("""
     QPushButton:pressed {
         color:#78befc;
     }
+  
+                  
 """)
 
 window = MainWindow()
